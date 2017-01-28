@@ -13,7 +13,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource {
     
     let urlWithUserData = "http://jsonplaceholder.typicode.com/users"
-        
+    
     class addressInfo {
         var street: String = ""
         var suite: String = ""
@@ -62,17 +62,11 @@ class ViewController: UIViewController, UITableViewDataSource {
             
             if let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? NSArray {
                 
-                /*
-                print(jsonObject!.value(forKey: "id"))
-                print(jsonObject!.value(forKey: "username"))
-                */
                 if let userNames = jsonObject!.value(forKey: "username") as? NSArray {
                     for userItem in userNames {
                         self.nameArray.append(userItem as! String)
                         print(userItem)
                     }
-                    
-
                 }
                 
                 if let userAddresss = jsonObject!.value(forKey: "address") as? NSArray {
@@ -81,7 +75,7 @@ class ViewController: UIViewController, UITableViewDataSource {
                         let suite = (usersAddress as AnyObject).value(forKey: ("suite" as? String)!)
                         let city = (usersAddress as AnyObject).value(forKey: ("city" as? String)!)
                         let zipcode = (usersAddress as AnyObject).value(forKey: ("zipcode" as? String)!)
-                        
+
                         let newAddress = addressInfo(street: street as! String, suite: suite as! String, city: city as! String, zipcode: zipcode as! String)
                         self.collectionOfAddresses.append(self.stringConverter(address: newAddress))
                     }
@@ -133,62 +127,6 @@ class ViewController: UIViewController, UITableViewDataSource {
     func stringConverter(address: addressInfo) -> (String) {
         return "\(address.street) \(address.suite) \(address.city) \(address.zipcode)"
     }
-    
-    
-    /*   } override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-     let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-     
-     // Configure the cell...
-     
-     return cell
-     }
-     */
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
     
     
 }
