@@ -12,10 +12,8 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource {
     
-    let urlStringWithUserData = "http://jsonplaceholder.typicode.com/users"
-    
-    typealias contactItem = [String : Any]
-    
+    let urlWithUserData = "http://jsonplaceholder.typicode.com/users"
+        
     class addressInfo {
         var street: String = ""
         var suite: String = ""
@@ -42,8 +40,6 @@ class ViewController: UIViewController, UITableViewDataSource {
 
     
     var nameArray = [String]()
-    var addressArray = [String]()//dictionaryWithValues(forKeys: ["street", "suite", "city", "zipcode"]
-    var contactInfo = [addressInfo]()
     var collectionOfAddresses = [String]()
     
     
@@ -52,13 +48,15 @@ class ViewController: UIViewController, UITableViewDataSource {
         self.downloadJsonWithURL()
     }
     
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     func downloadJsonWithURL() {
-        let url = NSURL(string: urlStringWithUserData)
+        let url = NSURL(string: urlWithUserData)
         URLSession.shared.dataTask(with: (url as? URL)!, completionHandler: {(data, responds, error) -> Void in
             
             
@@ -79,48 +77,21 @@ class ViewController: UIViewController, UITableViewDataSource {
                 
                 if let userAddresss = jsonObject!.value(forKey: "address") as? NSArray {
                     for usersAddress in userAddresss {
-                    let street = (usersAddress as AnyObject).value(forKey: ("street" as? String)!)
-                    let suite = (usersAddress as AnyObject).value(forKey: ("suite" as? String)!)
-                    let city = (usersAddress as AnyObject).value(forKey: ("city" as? String)!)
-                    let zipcode = (usersAddress as AnyObject).value(forKey: ("zipcode" as? String)!)
+                        let street = (usersAddress as AnyObject).value(forKey: ("street" as? String)!)
+                        let suite = (usersAddress as AnyObject).value(forKey: ("suite" as? String)!)
+                        let city = (usersAddress as AnyObject).value(forKey: ("city" as? String)!)
+                        let zipcode = (usersAddress as AnyObject).value(forKey: ("zipcode" as? String)!)
                         
                         let newAddress = addressInfo(street: street as! String, suite: suite as! String, city: city as! String, zipcode: zipcode as! String)
                         self.collectionOfAddresses.append(self.stringConverter(address: newAddress))
                     }
-                
+                    
                 }
                 
                 
                 OperationQueue.main.addOperation({
                     self.tableView.reloadData()
                 })
-               /*
-                if let userArray = jsonObject!.value(forKey: "username") as? NSArray {
-                    for user in userArray {
-                        if let userDict = user as? NSDictionary {
-                            if let name = userDict.value(forKey:"username") {
-                                self.nameArray.append(name as! String)
-                                print(name)
-                            }
-                            /*if let userDict.value(forKey:"address") {
-                                let newAddress = addressInfo(street: userDict.value(forKey: "street") as! String , suite: userDict.value(forKey: "suite") as! String , city: userDict.value(forKey: "city") as! String, zipcode: userDict.value(forKey: "zipcode") as! String)
-                                self.collectionOfAddresses.append(self.stringConverter(address: newAddress))
-                                
-                                
-                                print(self.stringConverter(address: newAddress))
-                            }*/
-                            
-                            OperationQueue.main.addOperation({
-                                    self.tableView.reloadData()
-                            })
-                            
-                        }
-                        
-                    }
-                    
-                    
-                }*/
-                
             }
         }).resume()
         
@@ -128,7 +99,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     
     func downloadJsonWithTask(){
-        let url = NSURL(string: urlStringWithUserData)
+        let url = NSURL(string: urlWithUserData)
         
         var downloadTask = URLRequest(url: (url as? URL)!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: 20)
         
