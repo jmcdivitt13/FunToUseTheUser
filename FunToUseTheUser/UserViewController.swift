@@ -10,29 +10,11 @@ import UIKit
 
 
 
-class ViewController: UIViewController, UITableViewDataSource {
+class UserViewController: UIViewController, UITableViewDataSource {
     
     let urlWithUserData = "http://jsonplaceholder.typicode.com/users"
     
-    class addressInfo {
-        var street: String = ""
-        var suite: String = ""
-        var city: String = ""
-        var zipcode: String = ""
         
-        init(street: String, suite: String, city: String, zipcode: String) {
-            self.street = street
-            self.suite = suite
-            self.city = city
-            self.zipcode = zipcode
-        }
-        
-       /* var geo = {
-            var lng: String
-            var lat: String
-        }*/
-    }
-    
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -76,7 +58,7 @@ class ViewController: UIViewController, UITableViewDataSource {
                         let city = (usersAddress as AnyObject).value(forKey: ("city" as? String)!)
                         let zipcode = (usersAddress as AnyObject).value(forKey: ("zipcode" as? String)!)
 
-                        let newAddress = addressInfo(street: street as! String, suite: suite as! String, city: city as! String, zipcode: zipcode as! String)
+                        let newAddress = UserAddress(street: street as! String, suite: suite as! String, city: city as! String, zipcode: zipcode as! String)
                         self.collectionOfAddresses.append(self.stringConverter(address: newAddress))
                     }
                     
@@ -102,7 +84,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         URLSession.shared.dataTask(with: downloadTask, completionHandler: {(data, responds, error) -> Void in
             
             let jsonData = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments)
-
+            
             print(jsonData)
         }).resume()
         
@@ -116,16 +98,16 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! UserListTableViewCell
         
         cell.username.text = nameArray[indexPath.row]
-       cell.address.text = collectionOfAddresses[indexPath.row]
+        cell.address.text = collectionOfAddresses[indexPath.row]
         
         return cell
     }
     
-    func stringConverter(address: addressInfo) -> (String) {
-        return "\(address.street) \(address.suite) \(address.city) \(address.zipcode)"
+    func stringConverter(address: UserAddress) -> (String) {
+        return "\(address.street)\(address.suite)\n\(address.city) \(address.zipcode)"
     }
     
     
