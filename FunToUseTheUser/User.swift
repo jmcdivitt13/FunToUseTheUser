@@ -17,6 +17,8 @@ struct contactInfo {
     var name: String
     var catchFrase: String
     var bs: String
+    
+    // -may need to use this method later?    init(phone: String, website: String, company: String, nam){}
 }
 
 
@@ -27,26 +29,33 @@ class UserAddress {
     var city: String = ""
     var zipcode: String = ""
     
+    //var userInfo: contactInfo
+    
+    
     init(street: String, suite: String, city: String, zipcode: String) {
         self.street = street
         self.suite = suite
         self.city = city
         self.zipcode = zipcode
+
     }
+    
+    
 
 }
 
 class UserInfo {
-    var id: String = ""
+    var userId: String = ""
     var name: String = ""
     var email: String = ""
     var username: String = ""
     
-    init(name: String, email: String, username: String, id: String) {
+    
+    init(userid: String, name: String, email: String, username: String) {
         self.name = name
         self.email = email
         self.username = username
-        self.id = id
+        self.userId = userid
     }
 
 

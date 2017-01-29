@@ -11,10 +11,13 @@ import Foundation
 
 
 class Post {
-    var post: String
+    var title: String
+    var body: String
     
-    init(post: String) {
-        self.post = post
+    //storing cell temperaraly
+    init(title: String, body: String) {
+        self.title = title
+        self.body = body
     }
 }
 

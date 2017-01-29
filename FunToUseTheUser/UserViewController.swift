@@ -57,8 +57,8 @@ class UserViewController: UIViewController, UITableViewDataSource {
                         let suite = (usersAddress as AnyObject).value(forKey: ("suite" as? String)!)
                         let city = (usersAddress as AnyObject).value(forKey: ("city" as? String)!)
                         let zipcode = (usersAddress as AnyObject).value(forKey: ("zipcode" as? String)!)
-
-                        let newAddress = UserAddress(street: street as! String, suite: suite as! String, city: city as! String, zipcode: zipcode as! String)
+                        
+                        let newAddress = UserAddress(street: (street as? String)!, suite: (suite as? String)!, city: (city as? String)!, zipcode: (zipcode as? String)!)
                         self.collectionOfAddresses.append(self.stringConverter(address: newAddress))
                     }
                     
