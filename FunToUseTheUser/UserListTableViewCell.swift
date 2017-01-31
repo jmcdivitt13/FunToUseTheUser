@@ -1,5 +1,5 @@
 //
-//  TableViewCell.swift
+//  UserListTableViewCell.swift
 //  FunToUseTheUser
 //
 //  Created by Harold Davis on 1/27/17.
@@ -14,6 +14,7 @@ class UserListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var address: UILabel!
     
+   
     
     
     override func awakeFromNib() {
